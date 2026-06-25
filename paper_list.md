@@ -1,0 +1,5 @@
+VLM2Vec-V2: Advancing Multimodal Embedding for Videos, Images, and Visual Documents
+ColPali: EFFICIENT DOCUMENT RETRIEVAL WITH VISION LANGUAGE MODELS
+MMGraphRAG: Bridging Vision and Language with Interpretable Multimodal Knowledge Graphs
+RAG-ANYTHING: ALL-IN-ONE RAG FRAMEWORK
+VISRAG 2.0: EVIDENCE-GUIDED MULTI-IMAGE REASONING IN VISUAL RETRIEVAL-AUGMENTED GENERATION
