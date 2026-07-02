@@ -24,6 +24,8 @@
 
 基於上述挑戰,我們提出證據引導式視覺檢索增強生成(Evidence-guided Vision Retrieval-augmented Generation, EVisRAG),使VLM在多圖像情境下具備精確的視覺感知能力。如圖1所示,EVisRAG執行一個語言化觀察階段,依序從檢索到的圖像中蒐集證據,並持續聚焦於這些圖像,接著針對所蒐集的證據進行推理,以得出正確答案。為有效訓練EVisRAG,我們引入獎勵範疇化群組相對策略優化(Reward-Scoped Group Relative Policy Optimization, RS-GRPO),此方法將細粒度獎勵直接施加於範疇內(in-scope)的詞元(token)上,以聯合優化視覺感知與推理。在多種視覺問答(VQA)任務上的實驗證明了EVisRAG的有效性,相較於不同的VRAG方法展現出顯著的提升。憑藉RS-GRPO,EVisRAG能夠逐張圖像精確找出與問題相關的證據,再對所記錄的線索進行推理,如同偵探般得出有依據的答案。此外,EVisRAG相較於其他基準方法展現出更強的視覺感知能力與更高的答案準確率,證實了更豐富的視覺感知有助於提升問題理解能力與回應品質。
 
+[EVisRAG 和 Captioning 差異](different.md)
+
 # Methodology
 
 **3 方法論**

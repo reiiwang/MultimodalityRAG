@@ -1,3 +1,9 @@
+Q; Our objective is to learn a unified embedding space that supports diverse visual modalities and tasks. This requires a model backbone capable of flexibly encoding interleaved sequences of text, images, and videos, while also handling long-form inputs such as fulllength videos and multi-page visual documents. Vision-language models (Liu et al., 2024a) have shown strong performance across benchmarks and have proven effective as foundations for multimodal embedding models (Jiang et al., 2024; Lin et al., 2024).  Based on these criteria, we adopt Qwen2-VL (Wang et al., 2024b) as the backbone of VLM2Vec-V2. Qwen2-VL is particularly well-suited for our needs, offering (1) Naive Dynamic Resolution for efficiently processing inputs with variable resolutions, (2) Multimodal Rotary Position Embedding (M-RoPE) to capture spatial and temporal structure, and (3) a unified architecture that integrates 2D and 3D convolutions for consistent image and video understanding. These capabilities enable scalable and generalizable encoding across heterogeneous multimodal data.
+
+Qwen2-VL具備的特質難道不足以解決他們的問題嗎
+
+
+
 **簡短回答:不足夠。** Qwen2-VL 只解決了「編碼端」的問題,但論文開頭定義的目標還包含「嵌入空間」與「任務指令控制」兩個面向,這些是 Qwen2-VL 本身不會自動具備的能力。可以拆開來看:
 
 **Qwen2-VL 確實解決的部分**
