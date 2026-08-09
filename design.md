@@ -237,3 +237,167 @@ VLM 對每張圖/表產出描述後,依照來源類型決定拼接位置:
 
 
 <img width="197" height="150" alt="multimodal_rag_design" src="https://github.com/user-attachments/assets/e12aca21-a26e-4268-ad8f-c4af27ceb13d" />
+
+
+
+
+---
+
+
+<img width="170" height="150" alt="multimodal_rag_sequence_diagram" src="https://github.com/user-attachments/assets/4cbfcd03-5407-4c28-87b8-a5d951d422f0" />
+
+<svg viewBox="0 0 1300 1150" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1300" height="1150" fill="#ffffff"/>
+  <text x="650" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a1a1a">Multimodal RAG 循序圖 (Sequence Diagram)</text>
+
+  <!-- Lifelines -->
+  <!-- x positions -->
+  <!-- User=80, Text=260, Image=440, Table=620, Fusion=820, VLM=1020, LLM=1200 -->
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <!-- headers -->
+  <g font-size="13" font-weight="bold" fill="white">
+    <rect x="30" y="55" width="100" height="36" rx="6" fill="#334155"/>
+    <text x="80" y="78" text-anchor="middle">User</text>
+
+    <rect x="200" y="55" width="120" height="36" rx="6" fill="#16a34a"/>
+    <text x="260" y="78" text-anchor="middle">Text Retriever</text>
+
+    <rect x="380" y="55" width="120" height="36" rx="6" fill="#d97706"/>
+    <text x="440" y="78" text-anchor="middle">Image Retriever</text>
+
+    <rect x="560" y="55" width="120" height="36" rx="6" fill="#7c3aed"/>
+    <text x="620" y="78" text-anchor="middle">Table Retriever</text>
+
+    <rect x="750" y="55" width="140" height="36" rx="6" fill="#0891b2"/>
+    <text x="820" y="78" text-anchor="middle">Fusion Module</text>
+
+    <rect x="960" y="55" width="120" height="36" rx="6" fill="#2563eb"/>
+    <text x="1020" y="78" text-anchor="middle">VLM</text>
+
+    <rect x="1150" y="55" width="100" height="36" rx="6" fill="#1e293b"/>
+    <text x="1200" y="78" text-anchor="middle">LLM</text>
+  </g>
+
+  <!-- lifelines -->
+  <g stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3">
+    <line x1="80" y1="91" x2="80" y2="1110"/>
+    <line x1="260" y1="91" x2="260" y2="1110"/>
+    <line x1="440" y1="91" x2="440" y2="1110"/>
+    <line x1="620" y1="91" x2="620" y2="1110"/>
+    <line x1="820" y1="91" x2="820" y2="1110"/>
+    <line x1="1020" y1="91" x2="1020" y2="1110"/>
+    <line x1="1200" y1="91" x2="1200" y2="1110"/>
+  </g>
+
+  <!-- helper style for msg text -->
+  <g font-size="12" fill="#1e293b">
+
+  <!-- 1. User -> Text/Image/Table: query -->
+  <line x1="80" y1="120" x2="255" y2="120" stroke="#334155" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="90" y="114" font-weight="bold">1: query</text>
+  <line x1="80" y1="140" x2="435" y2="140" stroke="#334155" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="90" y="134" font-weight="bold">1: query</text>
+  <line x1="80" y1="160" x2="615" y2="160" stroke="#334155" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="90" y="154" font-weight="bold">1: query</text>
+
+  <!-- activation bars -->
+  <rect x="255" y="120" width="10" height="60" fill="#bbf7d0"/>
+  <rect x="435" y="140" width="10" height="40" fill="#fde68a"/>
+  <rect x="615" y="160" width="10" height="20" fill="#ddd6fe"/>
+
+  <!-- 2. Text Retriever returns text chunks -->
+  <line x1="260" y1="200" x2="825" y2="200" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="270" y="194" fill="#166534" font-weight="bold">2: text_chunks (含 &lt;img&gt; / 表格)</text>
+
+  <!-- 3. Image retriever returns image_image -->
+  <line x1="440" y1="220" x2="825" y2="220" stroke="#d97706" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="450" y="214" fill="#92400e" font-weight="bold">3: image_image candidates</text>
+
+  <!-- 4. Table retriever returns table_table -->
+  <line x1="620" y1="240" x2="825" y2="240" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="630" y="234" fill="#5b21b6" font-weight="bold">4: table_table candidates</text>
+
+  <!-- Fusion module activation -->
+  <rect x="815" y="200" width="10" height="330" fill="#a5f3fc"/>
+
+  <!-- 5. Fusion: extract text_image / text_table -->
+  <rect x="700" y="260" width="240" height="40" rx="6" fill="#ecfeff" stroke="#0891b2"/>
+  <text x="820" y="277" text-anchor="middle" fill="#0e7490" font-size="11" font-weight="bold">5: 從 text_chunks 抽取</text>
+  <text x="820" y="292" text-anchor="middle" fill="#0e7490" font-size="11" font-weight="bold">text_image / text_table</text>
+
+  <!-- 6. Fusion decision box -->
+  <rect x="640" y="315" width="360" height="90" rx="6" fill="#fff" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="820" y="332" text-anchor="middle" fill="#0e7490" font-size="12" font-weight="bold">6: alt 動態配額 fusion</text>
+  <text x="655" y="350" font-size="11" fill="#164e63">[有 text chunk 命中]</text>
+  <text x="670" y="365" font-size="11" fill="#164e63">image = text_image(≤3) + image_image 補滿至 5</text>
+  <text x="670" y="379" font-size="11" fill="#164e63">table = text_table(≤2) + table_table 補滿至 3</text>
+  <line x1="640" y1="386" x2="1000" y2="386" stroke="#0891b2" stroke-dasharray="2,2"/>
+  <text x="655" y="399" font-size="11" fill="#164e63">[無 text chunk 命中] image=image_image Top5 / table=table_table Top3</text>
+
+  <!-- 7. dedup -->
+  <rect x="700" y="415" width="240" height="34" rx="6" fill="#ecfeff" stroke="#0891b2"/>
+  <text x="820" y="436" text-anchor="middle" fill="#0e7490" font-size="11" font-weight="bold">7: 依唯一 ID 去重 + 依 chunk 分數排序</text>
+
+  <!-- 8. Fusion -> VLM: send 5 images + 3 tables -->
+  <line x1="825" y1="460" x2="1015" y2="460" stroke="#0891b2" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="835" y="454" fill="#0e7490" font-weight="bold">8: (5 images + 3 tables, query)</text>
+
+  <rect x="1015" y="460" width="10" height="80" fill="#bfdbfe"/>
+
+  <!-- 9. VLM loop -->
+  <rect x="960" y="480" width="200" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="1060" y="497" text-anchor="middle" fill="#1d4ed8" font-size="11" font-weight="bold">9: loop 每張圖/表</text>
+  <text x="1060" y="512" text-anchor="middle" fill="#1d4ed8" font-size="11">VLM(image/table, query)</text>
+  <text x="1060" y="526" text-anchor="middle" fill="#1d4ed8" font-size="11">→ 關聯性描述 / 答案</text>
+
+  <!-- 10. VLM -> Fusion: descriptions -->
+  <line x1="1020" y1="560" x2="825" y2="560" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="835" y="554" fill="#1d4ed8" font-weight="bold">10: 回傳 8 段描述文字</text>
+
+  <!-- 11. Fusion: splice back -->
+  <rect x="640" y="580" width="360" height="70" rx="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5"/>
+  <text x="820" y="598" text-anchor="middle" fill="#0e7490" font-size="12" font-weight="bold">11: 拼接回對應 text chunk</text>
+  <text x="660" y="616" font-size="10.5" fill="#164e63">text_image/text_table → append 至原 chunk</text>
+  <text x="660" y="632" font-size="10.5" fill="#164e63">image_image/table_table(補位)→ append 至所屬 chunk</text>
+  <text x="660" y="645" font-size="10.5" fill="#164e63">+ 標註「由 retrieval 額外補充」</text>
+
+  <!-- 12. Fusion -> LLM -->
+  <line x1="825" y1="670" x2="1195" y2="670" stroke="#334155" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="835" y="664" font-weight="bold">12: 增強後 context</text>
+
+  <rect x="1195" y="670" width="10" height="50" fill="#94a3b8"/>
+
+  <rect x="1050" y="690" width="140" height="34" rx="6" fill="#1e293b"/>
+  <text x="1120" y="711" text-anchor="middle" fill="white" font-size="11" font-weight="bold">13: 生成回答</text>
+
+  <!-- 14. LLM -> User -->
+  <line x1="1200" y1="740" x2="85" y2="740" stroke="#334155" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="900" y="734" font-weight="bold">14: final answer</text>
+
+  </g>
+
+  <!-- footer note -->
+  <rect x="30" y="790" width="1240" height="120" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="50" y="815" font-size="13" font-weight="bold" fill="#1a1a1a">補充說明</text>
+  <text x="50" y="838" font-size="12" fill="#334155">• step 6 的 alt 分支即為動態配額補位邏輯:text_image/text_table 不足時,由 image_image/table_table 依分數往下補。</text>
+  <text x="50" y="858" font-size="12" fill="#334155">• step 7 去重規則:同一張圖/表若同時出現在兩種來源,優先依其所屬 text chunk 分數決定去留;若所屬 chunk 分數低但圖表本身仍在 image_image/table_table 高分候選中,仍視為獨立候選入選。</text>
+  <text x="50" y="878" font-size="12" fill="#334155">• step 9 的 VLM 呼叫可視實作改為單次多圖輸入,而非逐一 loop,以降低延遲。</text>
+
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
