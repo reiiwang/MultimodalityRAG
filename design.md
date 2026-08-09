@@ -103,6 +103,7 @@ VLM 對每張圖/表產出描述後,依照來源類型決定拼接位置:
 
 見附件 `multimodal_rag_design.svg`
 
+
 <svg viewBox="0 0 1180 900" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
   <rect width="1180" height="900" fill="#ffffff"/>
 
@@ -233,3 +234,6 @@ VLM 對每張圖/表產出描述後,依照來源類型決定拼接位置:
   <line x1="580" y1="750" x2="590" y2="790" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
 
 </svg>
+
+
+<img width="197" height="150" alt="multimodal_rag_design" src="https://github.com/user-attachments/assets/e12aca21-a26e-4268-ad8f-c4af27ceb13d" />
